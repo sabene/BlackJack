@@ -1,0 +1,96 @@
+//********************************************************************
+//  LinkedQueue.java       Java Foundations
+//
+//  Represents a linked implementation of a queue.
+//********************************************************************
+/*
+ * Names: Sabene Pleasant 
+ * Lab 7
+ */
+
+package javafoundations;
+
+import javafoundations.exceptions.*;
+
+public class LinkedQueue<T> implements Queue<T> {
+  private int count;
+  private LinearNode<T> front, rear;
+  
+  //-----------------------------------------------------------------
+  //  Creates an empty queue.
+  //-----------------------------------------------------------------
+  public LinkedQueue() {
+    count = 0;
+    front = rear = null;
+  }
+  
+  //-----------------------------------------------------------------
+  //  Adds the specified element to the rear of this queue.
+  //-----------------------------------------------------------------
+  public void enqueue (T el) {
+    //create a LinearNote out of the input element
+    LinearNode<T> node = new LinearNode<T>(el);
+    
+    if (count == 0)
+      front = node;
+    else
+      rear.setNext(node);
+    
+    rear = node;
+    count++;
+  }
+  
+  //-----------------------------------------------------------------
+  //  The following methods are left as Programming Projects.
+  //-----------------------------------------------------------------
+  public T dequeue () throws EmptyCollectionException {
+    if (count == 0){
+      throw new EmptyCollectionException("The queue is empty");
+      
+    }
+    T temp = front.getElement();
+    front = front.getNext();
+    count--;
+    return temp;
+    
+  }
+  
+  public T first () throws EmptyCollectionException {
+    return front.getElement();
+    
+  }
+  
+  
+  public boolean isEmpty() {
+    return (count == 0);
+    
+  }
+  
+  public int size() {
+    return count;
+  }
+  
+  public String toString() {
+    String result = "";
+    LinearNode current = front;
+    
+    while (current != null)
+    {
+      result += current.getElement() + "\n";
+      current = current.getNext();
+    }
+    return result;
+    
+  }
+  
+  
+  
+  public static void main(String[] args) {
+   LinkedQueue<String> s = new LinkedQueue<String>();
+   s.enqueue("s");
+   s.enqueue("are u kiddin me");
+   System.out.println(s);
+    
+  }
+  
+}
